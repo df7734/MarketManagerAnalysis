@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+    <!-- Подключение Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Подключение Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        /* Общие стили для страницы */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Хэдер */
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem; /* Увеличенный шрифт */
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .account-icon {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Контент */
+        .content {
+            flex: 1;
+            margin-top: 80px; /* Отступ сверху, чтобы не перекрывать хедер */
+            margin-bottom: 80px; /* Отступ снизу, чтобы футер не перекрывал контент */
+        }
+
+        /* Футер */
+        footer {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            padding: 15px;
+            width: 100%;
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        /* Контейнер для формы */
+        .product-container {
+            max-width: 700px; /* Уменьшаем ширину контейнера */
+            margin: 0 auto;
+            border-radius: 10px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стили для формы */
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .form-control:focus {
+            border-color: #28a745;
+        }
+
+        .btn-custom {
+            border-radius: 20px;
+        }
+
+        .btn-outline-secondary {
+            border-radius: 20px;
+            color: #28a745;
+            border: 1px solid #28a745;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Хэдер -->
+<header>
+    <div class="container">
+        <div class="header-container">
+            <!-- Навигационные ссылки -->
+            <nav class="nav-links">
+                <a href="/categories">Categories</a>
+                <a href="/brands">Brands</a>
+                <a href="/products">Products</a>
+            </nav>
+            <!-- Иконка аккаунта -->
+            <div class="account-icon">
+                <i class="bi bi-person-circle"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Контент -->
+<div class="content">
+    <div class="container mt-5">
+        <div class="product-container">
+            <h1 class="text-center mb-4">Edit Product</h1>
+
+            <form th:action="@{/products/edit}" th:object="${product}" method="post">
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" th:field="*{description}" rows="4" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="price" th:field="*{price}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" th:field="*{quantity}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category" th:field="*{category}" required>
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="brand" class="form-label">Brand</label>
+                    <select class="form-select" id="brand" th:field="*{brand}" required>
+                        <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image URL</label>
+                    <input type="text" class="form-control" id="image" th:field="*{image}">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-custom">Save Changes</button>
+                    <a href="/products" class="btn btn-outline-secondary btn-custom">Back to Products</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Футер -->
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Market Manager Analysis. Dmytro Fedotov. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Подключение Bootstrap и иконок -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
