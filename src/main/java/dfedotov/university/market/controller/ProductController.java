@@ -4,6 +4,7 @@ import dfedotov.university.market.entity.Product;
 import dfedotov.university.market.service.BrandService;
 import dfedotov.university.market.service.CategoryService;
 import dfedotov.university.market.service.ProductService;
+import io.micrometer.core.annotation.Timed;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class ProductController {
     private final BrandService brandService;
 
 
+    @Timed(value = "my_custom_request_time")
     @GetMapping
     public String getProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
