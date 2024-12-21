@@ -75,12 +75,12 @@
 
         .form-control {
             margin-bottom: 15px;
-            background-color: #f2f2f2; /* Бледный фон для полей */
-            color: #666; /* Темно-серый текст */
+            background-color: #f2f2f2;
+            color: #666;
         }
 
         .form-control::placeholder {
-            color: #aaa; /* Легкий цвет для текста placeholder */
+            color: #aaa;
         }
 
         .btn-register {
@@ -151,7 +151,6 @@
         <div class="form-text mt-3">
             <p>Already have an account? <a href="/login">Login</a></p>
         </div>
-        <!-- Ошибка регистрации -->
         <div th:if="${error}" class="alert alert-danger mt-3">
             <p th:text="${error}"></p>
         </div>

@@ -29,22 +29,20 @@
 //    @GetMapping("/register")
 //    public String showRegistrationForm(Model model) {
 //        model.addAttribute("user", new User());
-//        return "register";  // имя страницы регистрации
+//        return "register";
 //    }
 //
 //    @PostMapping("/register")
 //    public String registerUser(@RequestParam String username, @RequestParam String password, Model model) {
-//        // Проверяем, существует ли уже пользователь с таким username
 //        if (userRepository.existsByUsername(username)) {
-//            // Если существует, добавляем ошибку и возвращаем пользователя на страницу регистрации
-//            model.addAttribute("user", new User());  // Чтобы форма не сбросила свои данные
+//            model.addAttribute("user", new User());
 //            model.addAttribute("error", "Username is already taken.");
-//            return "register";  // снова возвращаем на страницу регистрации
+//            return "register";
 //        }
 //
 //        userService.save(username, password);
 //
-//        return "redirect:/login";  // редирект на страницу логина после регистрации
+//        return "redirect:/login";
 //    }
 //}
 

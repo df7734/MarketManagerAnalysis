@@ -22,10 +22,10 @@ public class BrandSeeder  implements CommandLineRunner {
                 Brand brand = new Brand();
                 brand.setName(faker.commerce().productName());
                 brand.setDescription(faker.lorem().sentence(10));
-                brand.setImage("https://via.placeholder.com/150"); // Заглушка для изображения
+                brand.setImage("https://via.placeholder.com/150");
                 brandRepository.save(brand);
             }
-            System.out.println("10 брендов добавлено в базу данных.");
+            System.out.println("10 brands were added to DB.");
         }
     }
 }

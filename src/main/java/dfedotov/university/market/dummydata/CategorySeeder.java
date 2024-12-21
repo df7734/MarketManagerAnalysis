@@ -22,10 +22,10 @@ public class CategorySeeder implements CommandLineRunner {
                 Category category = new Category();
                 category.setName(faker.commerce().department());
                 category.setDescription(faker.lorem().sentence(10));
-                category.setImage("https://via.placeholder.com/150"); // Заглушка для изображения
+                category.setImage("https://via.placeholder.com/150");
                 categoryRepository.save(category);
             }
-            System.out.println("20 категорий добавлено в базу данных.");
+            System.out.println("20 categories were added to DB.");
         }
     }
 }

@@ -18,11 +18,10 @@
 //    @Override
 //    @Transactional
 //    public void save(String username, String password) {
-//        // Если username уникален, создаем нового пользователя
 //        User user = new User();
 //        user.setUsername(username);
-//        user.setPassword(passwordEncoder.encode(password));  // шифруем пароль
-//        user.setRoles(List.of("USER"));  // Роль по умолчанию
-//        userRepository.save(user);  // Сохраняем в базе
+//        user.setPassword(passwordEncoder.encode(password));
+//        user.setRoles(List.of("USER"));
+//        userRepository.save(user);
 //    }
 //}

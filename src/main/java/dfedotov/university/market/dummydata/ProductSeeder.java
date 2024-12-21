@@ -32,7 +32,7 @@ public class ProductSeeder implements CommandLineRunner {
             List<Brand> brands = brandRepository.findAll();
 
             if (categories.isEmpty() || brands.isEmpty()) {
-                System.out.println("Необходимо предварительно заполнить категории и бренды.");
+                System.out.println("AT FIRST FILL OTHER TABLES.");
                 return;
             }
 
@@ -41,18 +41,17 @@ public class ProductSeeder implements CommandLineRunner {
                 product.setName(faker.commerce().productName());
                 product.setDescription(faker.lorem().sentence(15));
                 String priceString = faker.commerce().price(10.0, 1000.0);
-                priceString = priceString.replace(",", "."); // Заменяем запятую на точку
+                priceString = priceString.replace(",", ".");
                 product.setPrice(Double.parseDouble(priceString));
                 product.setQuantity(random.nextInt(1, 100));
-                product.setImage("https://via.placeholder.com/150"); // Заглушка для изображения
+                product.setImage("https://via.placeholder.com/150");
 
-                // Случайный выбор Category и Brand
                 product.setCategory(getRandomElement(categories));
                 product.setBrand(getRandomElement(brands));
 
                 productRepository.save(product);
             }
-            System.out.println("50 продуктов добавлено в базу данных.");
+            System.out.println("50 products were added to DB.");
         }
     }
 
