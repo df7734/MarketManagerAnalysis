@@ -21,10 +21,12 @@ public class ProductController {
     private final BrandService brandService;
 
 
-    @Timed(value = "my_custom_request_time")
+    @Timed(value = "get_products_filter_by_price_and_name")
     @GetMapping
-    public String getProducts(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
+    public String getProducts(@RequestParam(required = false) Integer price,
+                              @RequestParam(required = false) String brandName,
+                              Model model) {
+        model.addAttribute("products", productService.getAllProducts(price, brandName));
         return "products";
     }
 

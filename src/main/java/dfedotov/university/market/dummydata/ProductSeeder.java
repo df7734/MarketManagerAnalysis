@@ -36,7 +36,7 @@ public class ProductSeeder implements CommandLineRunner {
                 return;
             }
 
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 4000; i++) {
                 Product product = new Product();
                 product.setName(faker.commerce().productName());
                 product.setDescription(faker.lorem().sentence(15));

@@ -18,7 +18,7 @@ public class CategorySeeder implements CommandLineRunner {
         if (categoryRepository.count() == 0) {
             Faker faker = new Faker();
 
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 980; i++) {
                 Category category = new Category();
                 category.setName(faker.commerce().department());
                 category.setDescription(faker.lorem().sentence(10));

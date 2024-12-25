@@ -2,6 +2,8 @@ Grafana: http://localhost:3000/
 grafana listens Prometheus server http://localhost:9090/
 
 Grafana runs as service in Windows (Control Panel -> Admin -> Services)
+Credentials: admin / admin
+
 Prometheus runs from cmd
 C:\Users\df773\Downloads\prometheus\prometheus> prometheus.exe --config.file=prometheus.yml
 

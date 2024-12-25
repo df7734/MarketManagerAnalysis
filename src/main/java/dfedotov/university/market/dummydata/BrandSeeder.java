@@ -18,7 +18,7 @@ public class BrandSeeder  implements CommandLineRunner {
         if (brandRepository.count() == 0) {
             Faker faker = new Faker();
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 990; i++) {
                 Brand brand = new Brand();
                 brand.setName(faker.commerce().productName());
                 brand.setDescription(faker.lorem().sentence(10));

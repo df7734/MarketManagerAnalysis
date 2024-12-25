@@ -19,6 +19,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAllProducts(Integer price, String brandName) {
+        if(brandName != null){
+            brandName = "%" + brandName + "%";
+        }
+        return productRepository.findByPriceAndBrandName(price, brandName);
+    }
+
+    @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product not found with ID: " + id));
