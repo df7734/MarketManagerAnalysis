@@ -15,4 +15,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "WHERE (:price IS NULL OR p.price >= :price) " +
             "AND (:brandName IS NULL OR b.name ILIKE :brandName)", nativeQuery = false)
     List<Product> findByPriceAndBrandName(@Param("price") Integer price, @Param("brandName") String brandName);
+
+    @Query( "SELECT p.product " +
+            "FROM Purchase p " +
+            "GROUP BY p.product " +
+            "ORDER BY COUNT(p) DESC " +
+            "LIMIT 50")
+    List<Product> findTop50PopularProducts();
 }

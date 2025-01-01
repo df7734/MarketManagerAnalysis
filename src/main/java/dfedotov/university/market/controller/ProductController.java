@@ -1,15 +1,22 @@
 package dfedotov.university.market.controller;
 
 import dfedotov.university.market.entity.Product;
+import dfedotov.university.market.entity.ProductImageBLOB;
 import dfedotov.university.market.service.BrandService;
 import dfedotov.university.market.service.CategoryService;
+import dfedotov.university.market.service.ProductImageService;
 import dfedotov.university.market.service.ProductService;
 import io.micrometer.core.annotation.Timed;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -19,7 +26,7 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final BrandService brandService;
-
+    private final ProductImageService productImageService;
 
     @Timed(value = "get_products_filter_by_price_and_name")
     @GetMapping
@@ -30,10 +37,27 @@ public class ProductController {
         return "products";
     }
 
+
+    @GetMapping("/popular")
+    public String getPopularProducts(Model model) {
+        model.addAttribute("products", productService.getPopularProducts());
+        return "products";
+    }
+
     @GetMapping("/{id}")
+    public String getProductDetailsBLOB(@PathVariable Long id, Model model) {
+        Product product = productService.getProductById(id);
+        List<ProductImageBLOB> images = productImageService.getImagesForProduct(id);
+        model.addAttribute("product", product);
+        model.addAttribute("images", images);
+        return "product-details-2";
+    }
+
+    @GetMapping("/v2/{id}")
     public String getProductDetails(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
+        model.addAttribute("images", productService.getImages(product.getId()));
         return "product-details";
     }
 
@@ -60,5 +84,14 @@ public class ProductController {
             return "redirect:/products";
         }
         return "redirect:/products";
+    }
+
+    @GetMapping("/image/{id}")
+    @ResponseBody
+    public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
+        byte[] imageData = productImageService.getImageData(id);
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(imageData);
     }
 }

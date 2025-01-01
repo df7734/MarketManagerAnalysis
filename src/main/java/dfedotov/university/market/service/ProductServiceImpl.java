@@ -1,17 +1,21 @@
 package dfedotov.university.market.service;
 
 import dfedotov.university.market.entity.Product;
+import dfedotov.university.market.entity.ProductImage;
+import dfedotov.university.market.repository.ProductImageRepository;
 import dfedotov.university.market.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final ProductImageRepository productImageRepository;
 
     @Override
     public List<Product> getAllProducts() {
@@ -24,6 +28,23 @@ public class ProductServiceImpl implements ProductService {
             brandName = "%" + brandName + "%";
         }
         return productRepository.findByPriceAndBrandName(price, brandName);
+    }
+
+    @Override
+    public List<Product> getPopularProducts() {
+        return productRepository.findTop50PopularProducts();
+    }
+
+    @Override
+    public List<String> getImages(Long productId) {
+        List<ProductImage> images = productImageRepository.findByProductId(productId);
+        List<String> imageUrls = new ArrayList<>();
+        if(!images.isEmpty()){
+            for(ProductImage image: images){
+                imageUrls.add(image.getImageUrl());
+            }
+        }
+        return imageUrls;
     }
 
     @Override

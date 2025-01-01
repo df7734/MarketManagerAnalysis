@@ -14,4 +14,8 @@ public interface ProductService {
     void deleteProduct(Long id);
 
     List<Product> getAllProducts(Integer price, String brandName);
+
+    List<Product> getPopularProducts();
+
+    List<String> getImages(Long productId);
 }
