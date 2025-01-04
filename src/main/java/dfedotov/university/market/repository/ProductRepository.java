@@ -13,7 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT p FROM Product p JOIN Brand b " +
             "ON p.brand.id = b.id " +
             "WHERE (:price IS NULL OR p.price >= :price) " +
-            "AND (:brandName IS NULL OR b.name ILIKE :brandName)", nativeQuery = false)
+            "AND (:brandName IS NULL OR b.name ILIKE :brandName)")
     List<Product> findByPriceAndBrandName(@Param("price") Integer price, @Param("brandName") String brandName);
 
     @Query( "SELECT p.product " +

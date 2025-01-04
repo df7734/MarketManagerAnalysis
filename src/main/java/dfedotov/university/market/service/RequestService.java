@@ -38,4 +38,13 @@ public class RequestService {
             logger.info("Response {}:\n{}", i + 1, response);
         }
     }
+
+    public void sendRequests2() {
+        String baseUrl = "http://localhost:8080/purchases";
+
+        for (int i = 0; i < 100; i++) {
+            String response = restTemplate.getForObject(baseUrl, String.class);
+            logger.info("Response {}:\n{}", i + 1, response);
+        }
+    }
 }

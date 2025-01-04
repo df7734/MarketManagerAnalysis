@@ -16,4 +16,10 @@ public class TestController {
         requestService.sendRequests();
         return "Requests sent";
     }
+
+    @GetMapping("/test-purchases")
+    public String test2() {
+        requestService.sendRequests2();
+        return "Purchase Requests sent";
+    }
 }

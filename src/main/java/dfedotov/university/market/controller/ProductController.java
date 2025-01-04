@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -28,15 +27,20 @@ public class ProductController {
     private final BrandService brandService;
     private final ProductImageService productImageService;
 
-    @Timed(value = "get_products_filter_by_price_and_name")
+//    @Timed(value = "get_products_filter_by_price_and_name")
+//    @GetMapping
+//    public String getProducts(@RequestParam(required = false) Integer price,
+//                              @RequestParam(required = false) String brandName,
+//                              Model model) {
+//        model.addAttribute("products", productService.getAllProducts(price, brandName));
+//        return "products";
+//    }
+
     @GetMapping
-    public String getProducts(@RequestParam(required = false) Integer price,
-                              @RequestParam(required = false) String brandName,
-                              Model model) {
-        model.addAttribute("products", productService.getAllProducts(price, brandName));
+    public String getProducts(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
         return "products";
     }
-
 
     @GetMapping("/popular")
     public String getPopularProducts(Model model) {
